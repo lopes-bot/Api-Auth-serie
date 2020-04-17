@@ -4,6 +4,7 @@
   "description": "tipos de atenticação",
   "main": "app.js",
   "scripts": {
+    "start-dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "André Lopes",
@@ -12,6 +13,7 @@
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "express-promise-router": "^3.0.3",
+    "joi": "^14.3.1",
     "morgan": "^1.10.0"
   }
 }
