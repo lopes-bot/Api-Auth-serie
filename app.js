@@ -1,6 +1,9 @@
 const express = require("express");
 const morgan = require("morgan");
 const bodyParse = require("body-parser");
+const mongoose = require("mongoose");
+
+mongoose.connect("mongodb://localhost/Apiauth");
 
 const app = express();
 
