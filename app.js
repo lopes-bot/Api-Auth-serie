@@ -3,9 +3,21 @@ const morgan = require("morgan");
 const bodyParse = require("body-parser");
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb://localhost/Apiauth");
+mongoose.Promise = global.Promise;
+mongoose
+  .connect("mongodb://localhost/Apiauth", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("conexão com o mongoDB realizada com sucesso");
+  })
+  .catch((err) => {
+    console.log(err + "falha na conexão com o mongoDB");
+  });
 
 const app = express();
+app.use(express.json());
 
 //middlewares
 app.use(morgan("dev"));
