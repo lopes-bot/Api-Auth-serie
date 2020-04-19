@@ -42,9 +42,16 @@ module.exports = {
 
     res.status(200).json({ token });
   },
+
   signIn: async (req, res, next) => {
-    console.log("UserControle.signIn() called!");
+    //console.log("user", req.user);
+
+    const token = signToken(req.user);
+    //console.log("token " + token);
+    res.status(200).json({ token });
+    //console.log("login realizado com sucesso");
   },
+
   secret: async (req, res, next) => {
     console.log("UserControle.secret() called!");
     res.json({ secret: "resource" });

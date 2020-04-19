@@ -6,15 +6,21 @@ const passportConf = require("../passport");
 const { validateBody, schemas } = require("../helpers/routerHelper");
 
 const UserController = require("../controller/UserController");
+const passportSingIn = passport.authenticate("local", { session: false });
+const passportJwt = passport.authenticate("jwt", { session: false });
 
 router
   .route("/signup")
   .post(validateBody(schemas.authSchema), UserController.signUp);
 
-router.route("/signin").post(UserController.signIn);
-
 router
-  .route("/secret")
-  .get(passport.authenticate("jwt", { session: false }), UserController.secret);
+  .route("/signin")
+  .post(
+    validateBody(schemas.authSchema),
+    passportSingIn,
+    UserController.signIn
+  );
+
+router.route("/secret").get(passportJwt, UserController.secret);
 
 module.exports = router;
