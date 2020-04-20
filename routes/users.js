@@ -9,6 +9,9 @@ const UserController = require("../controller/UserController");
 const passportSingIn = passport.authenticate("local", { session: false });
 const passportJwt = passport.authenticate("jwt", { session: false });
 const passportGoogle = passport.authenticate("googleToken", { session: false });
+const passportFacebook = passport.authenticate("facebookToken", {
+  session: false,
+});
 
 router
   .route("/signup")
@@ -25,5 +28,8 @@ router
 router.route("/secret").get(passportJwt, UserController.secret);
 
 router.route("/oauth/google").post(passportGoogle, UserController.googleoAuth);
+router
+  .route("/oauth/facebook")
+  .post(passportFacebook, UserController.facebookoAuth);
 
 module.exports = router;
