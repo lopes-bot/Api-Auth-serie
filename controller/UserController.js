@@ -20,7 +20,7 @@ module.exports = {
     //console.log("UserControle.signUp() called!");
     const { email, password } = req.value.body;
     //verifica se ja possue um usuario com esse email
-    const foundUser = await User.findOne({ email });
+    const foundUser = await User.findOne({ "local.email": email });
     if (foundUser) {
       return res
         .status(403)
@@ -29,8 +29,11 @@ module.exports = {
 
     //criando um novo usuario
     const newUser = new User({
-      email,
-      password,
+      method: "local",
+      local: {
+        email: email,
+        password: password,
+      },
     });
 
     await newUser.save();
@@ -55,5 +58,12 @@ module.exports = {
   secret: async (req, res, next) => {
     console.log("UserControle.secret() called!");
     res.json({ secret: "resource" });
+  },
+
+  googleoAuth: async (req, res, next) => {
+    //gerador de token
+    console.log("req.user", req.user);
+    const token = signToken(req.user);
+    res.status(200).json({ token });
   },
 };

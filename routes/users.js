@@ -8,6 +8,7 @@ const { validateBody, schemas } = require("../helpers/routerHelper");
 const UserController = require("../controller/UserController");
 const passportSingIn = passport.authenticate("local", { session: false });
 const passportJwt = passport.authenticate("jwt", { session: false });
+const passportGoogle = passport.authenticate("googleToken", { session: false });
 
 router
   .route("/signup")
@@ -22,5 +23,7 @@ router
   );
 
 router.route("/secret").get(passportJwt, UserController.secret);
+
+router.route("/oauth/google").post(passportGoogle, UserController.googleoAuth);
 
 module.exports = router;
